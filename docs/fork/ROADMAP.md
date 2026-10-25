@@ -54,7 +54,7 @@ A new save picks any setup. A save in progress keeps its setup until it reaches 
 
 Emerald's Day Care (Route 117) stays the game's: 1 EXP per step, nothing while the game is off, and (to confirm against pokeemerald) moves learned on level-up, no evolution. A Pokémon in it isn't in the party or boxes. The fork's daycare opens when the story reaches the Route 117 Day Care, and grows into a Poképark-style version later.
 
-PKForge's Poképark daycare counts real time instead (Gentle: about a level per 8 hours), writes exact EXP and recalculated stats while the game is closed, and leaves moves alone. It only writes back to a Pokémon unchanged since check-in, so a Pokémon trained elsewhere in between is refused rather than trained twice. For scale: a level 20 Pokémon needs about 1,260 EXP for level 21, which is about 1,260 steps in the game's Day Care, or about 8 hours at Gentle.
+PKForge's Poképark daycare counts real time instead (Gentle: about a level per 8 hours), writes exact EXP and recalculated stats while the game is closed, and leaves moves alone. It writes back to the same individual (trainer ID and PID, `ParkIdentity`) however it was played since; until 2026-10-26 it refused any change at all, so one friendship point from walking blocked the pickup. For scale: a level 20 Pokémon needs about 1,260 EXP for level 21, which is about 1,260 steps in the game's Day Care, or about 8 hours at Gentle.
 
 When this fork's modules give EXP, it goes through the game's own level-up code, so moves and stats behave as the game would; evolution waits for the next level gained in battle.
 
