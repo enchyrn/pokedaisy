@@ -62,6 +62,8 @@ When this fork's modules give EXP, it goes through the game's own level-up code,
 
 Camp comes first, before the daycare: rough training out in the wild, there from early on.
 
+Why camp earns anything at all: benefits from outside normal play are only fair when the player is doing something for them. Setting up and running a camp is that something, extra gameplay in its own right, so its rewards are tied to it rather than handed out.
+
 - A camp is a place: the player builds a campsite on a route or a town's outskirts. Nobody is dropped off; whoever is with the player is camping.
 - The party trains by sparring with teammates (mostly friendship, a little EXP) and by meeting the place's own wild Pokémon, drawn from its encounter table at its levels, with EXP worked out as the game would for beating them. That limits itself: Route 101 does almost nothing for a level 40 team.
 - Camping can be active (playing the route while camp runs alongside) or AFK. Closing the game while camped counts too: the time away is worked out on return, PKForge-style, into a short log.
@@ -72,7 +74,7 @@ Camp comes first, before the daycare: rough training out in the wild, there from
 ## Open threads
 
 - **Standing camps.** A site can be left up with some Pokémon there, or taken down. The ones left behind would sit in a PC box (one per camp, named after it) and train like a scaled-down daycare; boxed Gen 3 Pokémon store EXP but not level or stats (to confirm), so adding EXP to them is clean. Standing camps become mini hideouts to revisit. Emerald's Secret Bases are real in-game hideouts on routes (unlocked by Secret Power on Route 111, one at a time), so the main camp could be the Secret Base, walked into in the game, with other standing camps in the companion.
-- **Travel training.** Still to explore. Walking in the game already raises friendship and battles give EXP.
+- **Travel training.** Parked: still vague. It could be in-game walking between campsites, real-world walking (Pokéwalker, below), or both. Walking in the game already raises friendship and battles give EXP.
 - **Pokéwalker.** The phone counts real steps even with the game closed. Take a Pokémon on a walk: real steps become EXP, friendship and finds, from courses that unlock with story progress. Its currency (HGSS's "watts") could be where materials come from.
 - **Materials.** Earned by playing (camp finds, real walking), spent on building and improving camps and unlocking modes.
 - **Treasures as items.** Poképark-style finds becoming real items: maybe too cheaty, but "a grind is still a grind". Pickup-style finds from Emerald's own lists, badge-gated and capped per day, are the likely middle ground.
