@@ -73,6 +73,39 @@ Early camps are rudimentary, so pitching one is quick. The payoff grows with wha
 - Moving a campsite means packing up.
 - This fork owns camp: its rules, its state, and every write to the game. Camp state goes in a small file beside the save (a camp journal, in a written-down format), so PKForge's Poképark can later read it and make camps walkable, queueing anything done there for this fork to apply at the next pack-up. PKForge never edits the save for camp. This fork comes first; the PKForge side is a later step.
 
+#### Tending
+
+All of these are wanted; each leans on something Emerald already has.
+
+1. **Campfire cooking.** Berries from the bag cooked into meals. Natures like or dislike flavours as in the game, so a liked meal gives friendship, and later contest condition the way Pokéblocks do.
+2. **Field-move chores.** Cut clears brush to grow the camp, Rock Smash breaks stones for materials, Strength moves logs, Flash lights the camp at night, Surf fishes for food. Field moves need their badges, so chores grow with the story.
+3. **Foraging.** A Pokémon with Pickup rolls Emerald's own Pickup table for its level; others bring berries or materials. Capped per day.
+4. **Sparring drills.** The player picks who spars with whom (type matchups matter): friendship, a little EXP, some effort values.
+5. **Luring visitors.** Berries (later Pokéblocks) left out, like the Safari Zone feeders, draw the route's wild Pokémon into camp: the player learns who lives there, and they're marked seen in the Pokédex.
+6. **Route-flavoured upkeep.** Weather changes the chores: rain puts the fire out, Route 113's ash is swept up as a material, sandstorms wear the tent.
+7. **Decorating.** Secret Base decorations from the PC furnish the camp.
+8. **Campfire stories.** Pokémon who camp together build relationships and a shared journal (PKForge's Poképark social layer).
+
+Order for the owner's run (started 2026-10-26, Treecko "Enchyrn", in Oldale Town), by when Emerald opens each one:
+
+1. From Routes 101-104, with two or more Pokémon: sparring, campfire stories, cooking and luring with picked berries, foraging (Zigzagoon has Pickup right there).
+2. Stone Badge (Rustboro): Cut chores.
+3. Dewford to Mauville: Flash and Rock Smash, Route 113's ash, Secret Power on Route 111 (decorating, the Secret Base link).
+4. Later: Strength, Surf fishing, sandstorm upkeep (Go-Goggles), cooking for contest conditions (Lilycove).
+
+#### Wild visitors you can fight and catch
+
+- A visitor can start a real wild battle: the same script trick PokeDaisy's "PC anywhere" uses, at a safe field moment, with a Pokémon from that route's encounter table at its levels. The player fights it in the game and catches it with real Poké Balls.
+- Befriending makes catching easier the game's way. Gen 3's catch formula has no friendship term, so a visitor comfortable at camp arrives drowsy (asleep doubles the catch chance in Gen 3) or worn out (lower HP), and once caught starts with higher friendship, like a Friend Ball.
+- Auto-catch is a late upgrade: only visitors befriended over several visits, a Poké Ball spent from the bag, the real catch formula rolled (a miss still costs the ball), capped per day, and the Pokémon given through the game's own path so its met location and the Pokédex read as a catch.
+
+#### Also fits
+
+- **Camp berry patch:** berries planted at camp grow on Emerald's own growth times and go to the bag when picked.
+- **Resting at the campfire:** a tent upgrade that slowly restores HP while camped or away.
+- **Rare camp events:** Emerald's rarities (Mirage Island days, swarms) hinted at camp, never forced.
+- **Kept out:** nothing changes shiny odds, natures or IVs; visitors are rolled as the game would roll them.
+
 ## Open threads
 
 - **Standing camps.** A site can be left up with some Pokémon there, or taken down. The ones left behind would sit in a PC box (one per camp, named after it) and train like a scaled-down daycare; boxed Gen 3 Pokémon store EXP but not level or stats (to confirm), so adding EXP to them is clean. Standing camps become mini hideouts to revisit. Emerald's Secret Bases are real in-game hideouts on routes (unlocked by Secret Power on Route 111, one at a time), so the main camp could be the Secret Base, walked into in the game, with other standing camps in the companion.
