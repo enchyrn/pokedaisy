@@ -1,6 +1,6 @@
 # Roadmap
 
-Brainstorm so far, as decisions and open ideas. Nothing here is built yet unless it says so. For the fork itself see [README.md](README.md). The brainstorm started in the [PKForge fork](https://github.com/gabzidevs/PKForge/blob/main/docs/fork/ROADMAP.md) and moved here on 2026-10-26, once PokeDaisy became the hub.
+Brainstorm so far, as decisions and open ideas. Nothing here is built yet unless it says so. For the fork itself see [README.md](README.md). The brainstorm started in the [PKForge fork](https://github.com/enchyrn/PKForge/blob/main/docs/fork/ROADMAP.md) and moved here on 2026-10-26, once PokeDaisy became the hub.
 
 ## Principle: organic, not cheating
 
@@ -63,6 +63,8 @@ When this fork's modules give EXP, it goes through the game's own level-up code,
 Camp comes first, before the daycare: rough training out in the wild, there from early on.
 
 Why camp earns anything at all: benefits from outside normal play are only fair when the player is doing something for them. Setting up and running a camp is that something, extra gameplay in its own right, so its rewards are tied to it rather than handed out.
+
+Early camps are rudimentary, so pitching one is quick. The payoff grows with what the player puts in: where it is, what was built and upgraded, how it is tended.
 
 - A camp is a place: the player builds a campsite on a route or a town's outskirts. Nobody is dropped off; whoever is with the player is camping.
 - The party trains by sparring with teammates (mostly friendship, a little EXP) and by meeting the place's own wild Pokémon, drawn from its encounter table at its levels, with EXP worked out as the game would for beating them. That limits itself: Route 101 does almost nothing for a level 40 team.

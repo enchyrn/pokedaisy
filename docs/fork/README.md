@@ -1,8 +1,8 @@
 # PokeDaisy Fork
 
-Personal fork of [PokeDaisy](https://github.com/lidor30/pokedaisy) at https://github.com/gabzidevs/pokedaisy (upstream: `lidor30/pokedaisy`). It's meant to become the hub for an "organic, not cheating" Emerald companion: features added as modules behind a small host interface. Nothing is built yet; the brainstorm and its decisions are in [ROADMAP.md](ROADMAP.md).
+Personal fork of [PokeDaisy](https://github.com/lidor30/pokedaisy) at https://github.com/enchyrn/pokedaisy (upstream: `lidor30/pokedaisy`). It's meant to become the hub for an "organic, not cheating" Emerald companion: features added as modules behind a small host interface. Nothing is built yet; the brainstorm and its decisions are in [ROADMAP.md](ROADMAP.md).
 
-Its sibling is the [PKForge fork](https://github.com/gabzidevs/PKForge), which serves as a design reference (Poképark, daycare, Bank) and will later read this fork's camp data.
+Its sibling is the [PKForge fork](https://github.com/enchyrn/PKForge), which serves as a design reference (Poképark, daycare, Bank) and will later read this fork's camp data.
 
 ## Syncing with upstream
 
