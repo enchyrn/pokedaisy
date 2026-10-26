@@ -2,6 +2,16 @@
 
 Brainstorm so far, as decisions and open ideas. Nothing here is built yet unless it says so. For the fork itself see [README.md](README.md). The brainstorm started in the [PKForge fork](https://github.com/enchyrn/PKForge/blob/main/docs/fork/ROADMAP.md) and moved here on 2026-10-26, once PokeDaisy became the hub.
 
+## Where things stand (2026-10-27)
+
+Read this first in a new session. Research and analysis behind these decisions (save formats, CFRU legality, the hack comparison, device notes, the manual save-edit procedure) are in [RESEARCH.md](RESEARCH.md).
+
+- **Both forks release on their own.** PKForge Fork `3.1.1-fork.6` (enchyrn/PKForge) and PokeDaisy Fork `1.3.2-fork.1` (enchyrn/pokedaisy), each signed with its own key backed up in Bitwarden, both installable through Obtainium. Each installs beside its upstream app.
+- **Roadmap step 1 (this fork and its module host) is still in brainstorm.** Camp mechanics are the active topic; travel training is parked. No module code exists yet. The design document comes after the brainstorm.
+- **Done since the brainstorm began:** PokeDaisy's per-controller GAME BUTTONS; PKForge's daycare identity fixes, leave-and-return memories, Unbound write-back and Blissey's notebook (see the work items).
+- **Waiting on a device test:** PokeDaisy Fork's per-controller buttons (keyboard and Nova Lite), PKForge fork.6's Unbound pickup and the notebook. Neither upstream app is uninstalled yet: move saves and states over first (RESEARCH.md, "Moving to the fork apps").
+- **The owner's runs:** Emerald with Treecko "Enchyrn" (Oldale Town, level 9 by EXP once it battles), Unbound with Larvitar "Tyran". Both had their lost daycare hours added by hand on 2026-10-27 (RESEARCH.md, "Manual EXP reconciliations").
+
 ## Principle: organic, not cheating
 
 Companion features should make the game more convenient and more alive, not skip it.
@@ -137,16 +147,16 @@ Small, concrete follow-ups, apart from the ordered steps below.
 
 ### PokeDaisy
 
-- **Controller mappings per device.** Every binding goes in one `controls.properties`, keyed by Android key name. `GbaControls.setBinding` replaces the button's whole key list with the key just pressed, so binding A on the Nova Lite drops the keyboard's A. The keyboard and the controller can't both keep their own maps.
-  - Keep one map per input device, chosen by the device that sent the key (`InputDevice` descriptor, falling back to its name), and use the map of whichever device is pressing.
-  - Add a "Reset to default" per device, built from `GbaControls.DEFAULTS`.
-  - Existing files become the map of the device that's connected first, or of every device.
+- **Controller mappings per device.** Done in PokeDaisy Fork 1.3.2-fork.1: each controller and keyboard keeps its own map (`GbaControls.Pad`, by `InputDevice` descriptor), made on its first rebind from the shared one; GAME BUTTONS shows the controller pressed last and has RESET TO DEFAULT. Not yet tried on the phone.
+- **Fork releases.** Done: own app ID `io.github.enchyrn.pokedaisy`, `fork-release.yml`, key in Bitwarden ("PokeDaisy Fork release key"). Upstream's Release workflow is disabled on the fork.
 
 ### PKForge
 
 - **Cross-game EXP rule.** When a Pokémon enters a game whose growth curve differs (for example Unbound's Medium Slow Larvitar), decide between keeping its level and resetting its progress inside that level, or keeping half the EXP gap. Whichever is chosen counts as the "penalty for crossing universes".
 - **Unbound daycare that writes EXP only.** Done in PKForge Fork 3.1.1-fork.6 (2026-10-27): stays are reckoned on Unbound's own growth curves and written as EXP only. The same release added Blissey's notebook, which keeps stays whose EXP couldn't be written and settles them once their saves are open. Camp can reuse the notebook idea for time away from the game.
 - **Heart & Soul save engine.** Only if a move to Heart & Soul is chosen.
+- **Radical Red and GS Chronicles write-back.** Their stays go in Blissey's notebook until their saves can be written (the shared `CfruEngineSession`) on their own growth curves, as Unbound's now are.
+- **A legal twin for a hack Pokémon** (idea, not started). An Unbound Pokémon can't become legal as itself (RESEARCH.md, "Cross-game transfers"). PKForge's legalizer could make a legal Larvitar from a real official encounter carrying Tyran's nickname, nature, gender, level and legal moves. It would be a new individual (new PID and IVs, new met data, possibly a new trainer ID), so the Poképark sees a new Pokémon: a one-way crossing into the official games.
 
 ## Order
 
