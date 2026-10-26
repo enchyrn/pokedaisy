@@ -1,3 +1,20 @@
+## This fork
+
+This is a personal fork of PokeDaisy, the hub for an "organic, not cheating" Emerald companion that will grow as modules (camp first; the plans are in [ROADMAP.md](docs/fork/ROADMAP.md)). It changes these things so far:
+
+- **Buttons per controller.** `GAME BUTTONS` keeps a separate map for each controller and keyboard, so setting up one never moves the other's buttons, and each one has `RESET TO DEFAULT`.
+- **It installs beside the official app.** Own app ID (`io.github.enchyrn.pokedaisy`), own name ("PokeDaisy Fork"), and update checks against this fork's releases.
+
+Because it installs beside the official app, it starts with empty app data: settings, save states and imported ROMs aren't shared. Link the same ROMs and saves folders in its setup to play the same saves.
+
+**Install:** download the APK from the [latest release](https://github.com/enchyrn/pokedaisy/releases/latest), or add the repo to [Obtainium](https://github.com/ImranR98/Obtainium) and let it track releases:
+
+[![Get it on Obtainium](https://img.shields.io/badge/Obtainium-Add%20this%20fork-2B4E95)](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/enchyrn/pokedaisy)
+
+More in [docs/fork](docs/fork/README.md). Everything below is the upstream README.
+
+---
+
 <div align="center">
 
 <img src="https://pokedaisy.com/og.png" alt="PokeDaisy: Game Boy, Game Boy Color, GBA and DS player with a live companion, on two screens or one, for Pokemon games and ROM hacks, free and open source" width="100%">
