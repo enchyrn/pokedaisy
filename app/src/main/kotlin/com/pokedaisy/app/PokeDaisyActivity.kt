@@ -1120,11 +1120,15 @@ class PokeDaisyActivity : Activity() {
         override fun setGbaControlBinding(btn: GbaControls.Btn, keyName: String) {
             val code = keyCodeForName(keyName) ?: return
             GbaControls.setBinding(getExternalFilesDir(null) ?: filesDir, btn, code)
-            input.setControls(GbaControls.load(getExternalFilesDir(null) ?: filesDir))
+            input.setControls(GbaControls.loadAll(getExternalFilesDir(null) ?: filesDir))
+        }
+        override fun resetGbaControls() {
+            GbaControls.resetToDefault(getExternalFilesDir(null) ?: filesDir)
+            input.setControls(GbaControls.loadAll(getExternalFilesDir(null) ?: filesDir))
         }
         override fun clearGbaControlBinding(btn: GbaControls.Btn) {
             GbaControls.clearBinding(getExternalFilesDir(null) ?: filesDir, btn)
-            input.setControls(GbaControls.load(getExternalFilesDir(null) ?: filesDir))
+            input.setControls(GbaControls.loadAll(getExternalFilesDir(null) ?: filesDir))
         }
         override val hotkeysEnabled get() = hotkeysOn
         override fun setHotkeysEnabled(on: Boolean) {
@@ -1888,7 +1892,7 @@ class PokeDaisyActivity : Activity() {
         if (romCode.isNotEmpty()) com.pokedaisy.app.companion.i18n.L10n.apply(Prefs(this).appLanguage, romCode)
         hotkeys = Hotkeys.load(getExternalFilesDir(null) ?: filesDir)
         hotkeysOn = Prefs(this).hotkeysEnabled
-        input.setControls(GbaControls.load(getExternalFilesDir(null) ?: filesDir))
+        input.setControls(GbaControls.loadAll(getExternalFilesDir(null) ?: filesDir))
         if (::engine.isInitialized) {
             engine.ffMaxSpeed = Prefs(this).ffMaxSpeed
             engine.ffMusicMode = Prefs(this).ffMusicMode
@@ -2722,7 +2726,7 @@ class PokeDaisyActivity : Activity() {
         menuKeyTakes(event)?.let { return it }
         quickMenuTakes(event)?.let { return it }
         if (hotkeyTakes(event.keyCode, down)) return true
-        if (input.onKey(event.keyCode, down)) {
+        if (input.onKey(event.keyCode, down, GbaControls.padOf(event.device)?.key)) {
             if (down && !physicalPadUsed && event.device?.isVirtual == false) {
                 physicalPadUsed = true
                 syncTouchControls()
@@ -2786,7 +2790,7 @@ class PokeDaisyActivity : Activity() {
         val down = event.action == KeyEvent.ACTION_DOWN
         if (code == KeyEvent.KEYCODE_BACK) return null
         if (!bottomFocus.value) {
-            if (!down || event.repeatCount != 0 || !input.isX(code) || !canFocusBottom()) return null
+            if (!down || event.repeatCount != 0 || !input.isX(code, GbaControls.padOf(event.device)?.key) || !canFocusBottom()) return null
             setBottomFocus(true)
             menuHeld.add(code)
             return true
@@ -2796,9 +2800,9 @@ class PokeDaisyActivity : Activity() {
             if (!down && !event.isCanceled) companionBackTap()
             return true
         }
-        val x = input.isX(code)
+        val x = input.isX(code, GbaControls.padOf(event.device)?.key)
         // X goes back whatever it presses in the game (START, on a GBA / Game Boy game).
-        val key = if (x) MenuKey.X else menuKeyFor(input.buttonFor(code) ?: 0) ?: return super.dispatchKeyEvent(event)
+        val key = if (x) MenuKey.X else menuKeyFor(input.buttonFor(code, GbaControls.padOf(event.device)?.key) ?: 0) ?: return super.dispatchKeyEvent(event)
         if (!down) {
             menuHeld.remove(code)
             return true
@@ -2882,7 +2886,7 @@ class PokeDaisyActivity : Activity() {
             if (!down && !event.isCanceled) companionBackTap()
             return true
         }
-        val key = menuKeyFor(input.buttonFor(code) ?: 0) ?: return super.dispatchKeyEvent(event)
+        val key = menuKeyFor(input.buttonFor(code, GbaControls.padOf(event.device)?.key) ?: 0) ?: return super.dispatchKeyEvent(event)
         if (!down) {
             menuHeld.remove(code)
             return true
@@ -2908,7 +2912,7 @@ class PokeDaisyActivity : Activity() {
             for (e in hotkeys.onKey(code, down)) handleHotkey(e)
             if (hotkeys.consumes(code)) return true
         }
-        val key = menuKeyFor(input.buttonFor(code) ?: 0) ?: return null
+        val key = menuKeyFor(input.buttonFor(code, GbaControls.padOf(event.device)?.key) ?: 0) ?: return null
         if (!down) {
             menuHeld.remove(code)
             return true

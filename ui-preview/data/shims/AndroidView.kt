@@ -1,6 +1,6 @@
 package android.view
 
-class KeyEvent(val action: Int = ACTION_DOWN, val keyCode: Int = 0, val repeatCount: Int = 0) {
+class KeyEvent(val action: Int = ACTION_DOWN, val keyCode: Int = 0, val repeatCount: Int = 0, val device: InputDevice? = null) {
     companion object {
         fun keyCodeFromString(s: String): Int = s.hashCode() and 0xFFFF
         /** The real name for the constants below (the rebind shots show them), else the number. */
@@ -55,7 +55,7 @@ class MotionEvent {
     }
 }
 
-class InputDevice {
+class InputDevice(val descriptor: String = "", val name: String = "", val isVirtual: Boolean = true) {
     companion object {
         const val SOURCE_JOYSTICK = 0x01000010
     }

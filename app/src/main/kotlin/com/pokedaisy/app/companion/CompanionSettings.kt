@@ -148,6 +148,9 @@ interface CompanionSettings {
     /** Leaves TURBO A / B unbound ([GbaControls.Btn.canClear]). */
     fun clearGbaControlBinding(btn: GbaControls.Btn) {}
 
+    /** RESET TO DEFAULT: [GbaControls.currentPad]'s buttons back to the defaults, the other controllers' kept. */
+    fun resetGbaControls() {}
+
     /** Whether the hotkeys fire at all ([com.pokedaisy.app.Prefs.hotkeysEnabled]). */
     val hotkeysEnabled: Boolean
     fun setHotkeysEnabled(on: Boolean)

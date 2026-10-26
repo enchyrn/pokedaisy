@@ -138,6 +138,9 @@ class SettingsActivity : ComponentActivity() {
     private class HotkeyClash(val action: Hotkeys.Action, val keys: List<Int>, val taken: List<Hotkeys.Action>)
     private var hotkeyClash by mutableStateOf<HotkeyClash?>(null)
     private var revision by mutableIntStateOf(0)
+    /** GAME BUTTONS' RESET TO DEFAULT asking first: the controller whose buttons it resets. */
+    private var resetButtonsFor by mutableStateOf<GbaControls.Pad?>(null)
+    private var resetButtonsAsked by mutableStateOf(false)
     private var aspectPicker by mutableStateOf(false)
 
     /** TOUCH CONTROLS' EDIT LAYOUT, over a stand-in of the game's screen; BACK goes to it ([touchBack]) while open. */
@@ -358,6 +361,18 @@ class SettingsActivity : ComponentActivity() {
                     prefs.gameAspect, gameScreenAspect(), prefs.statusBar && !prefs.statusBarOnCompanion, shot, m,
                     onPick = { prefs.gameAspect = it; aspectPicker = false; revision++ },
                     onDismiss = { aspectPicker = false },
+                )
+            }
+
+            if (resetButtonsAsked) {
+                val pad = resetButtonsFor
+                OptionConfirm(
+                    title = tk("RESET BUTTONS?"),
+                    message = tr("The buttons of {0} go back to the defaults. Other controllers keep theirs.", pad?.name ?: tr("ALL CONTROLLERS")),
+                    confirmLabel = tk("RESET"),
+                    m = m,
+                    onDismiss = { resetButtonsAsked = false },
+                    onConfirm = { resetButtonsAsked = false; GbaControls.resetToDefault(filesRoot, pad); revision++ },
                 )
             }
 
@@ -684,7 +699,7 @@ class SettingsActivity : ComponentActivity() {
                 labelIcon = { GoldTrophy() }, opensPage = true,
             ) { screen = Screen.ACHIEVEMENTS },
             groupTitle(tk("CONTROLS")),
-            SettingRow(tk("GAME BUTTONS"), null, subtitle = "Key bindings: which button presses A, B, START...", opensPage = true) { screen = Screen.CONTROLS },
+            SettingRow(tk("GAME BUTTONS"), null, subtitle = "Key bindings: which button presses A, B, START...", opensPage = true, labelBadge = com.pokedaisy.app.companion.NewFeatures.badge(com.pokedaisy.app.companion.NewFeatures.PAD_BUTTONS)) { screen = Screen.CONTROLS },
             SettingRow(tk("HOTKEYS"), onOff(prefs.hotkeysEnabled), opensPage = true, subtitle = "Button combos for states, FF and more") { screen = Screen.HOTKEYS },
             SettingRow(tk("QUICK MENU"), null, subtitle = "Actions on a held button", labelBadge = com.pokedaisy.app.companion.ui.quickMenuBadge(), opensPage = true) { screen = Screen.QUICK_MENU },
             // The on-screen buttons: when they show, layouts, size, extras, EDIT LAYOUT; the game picks it up on resume.
@@ -1568,17 +1583,26 @@ class SettingsActivity : ComponentActivity() {
 
     @Composable
     private fun ControlsScreen(m: GbaTextMetrics, small: GbaTextMetrics) {
-        val ctrls = remember(revision) { GbaControls.rawBindings(filesRoot) }
+        val pad = GbaControls.currentPad
+        val ctrls = remember(revision, pad) { GbaControls.rawBindings(filesRoot, pad?.key) }
         Column(modifier = Modifier.fillMaxWidth()) {
-            Hint(tr("Which physical button is each GBA button. The D-pad and analog stick are fixed."), m, small)
+            Hint(
+                tr("Which physical button is each GBA button. The D-pad and analog stick are fixed.") + " " +
+                    tr("Each controller keeps its own buttons. Showing {0}: press a button on another to see its own.", pad?.name ?: tr("ALL CONTROLLERS")),
+                m, small,
+            )
             OptionListWindow(m, Modifier.fillMaxWidth().weight(1f, fill = false)) {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
                     GbaControls.Btn.entries.forEachIndexed { i, btn ->
                         KeyBindRow(
                             btn.title, ctrls[btn], capture, m, small,
-                            divider = i < GbaControls.Btn.entries.lastIndex,
+                            divider = true,
                             subtitle = btn.subtitle, labelBadge = btn.badge,
                         ) { controlRequest(btn) }
+                    }
+                    OptionLine(tk("RESET TO DEFAULT"), null, selected = false, m, divider = false) {
+                        resetButtonsFor = pad
+                        resetButtonsAsked = true
                     }
                 }
             }

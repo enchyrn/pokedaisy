@@ -160,7 +160,10 @@ fun CompanionSettingsScreen(
                             tick++
                         }
                     } + SettingRow(tk("CANCEL"), null) { page = Page.HOME }
-                    Page.BUTTONS -> GbaControls.Btn.entries.map { btn ->
+                    // Each controller keeps its own map: the one pressing is shown and rebound, and resets alone.
+                    Page.BUTTONS -> listOf(
+                        SettingRow(tk("CONTROLLER"), GbaControls.currentPad?.name ?: tr("ALL CONTROLLERS")) {},
+                    ) + GbaControls.Btn.entries.map { btn ->
                         val title = btn.title
                         SettingRow(title, bindingValue(capture, title, settings.gbaControlBindings()[btn]), subtitle = btn.subtitle, labelBadge = btn.badge) {
                             capture?.toggle(title) {
@@ -171,6 +174,12 @@ fun CompanionSettingsScreen(
                                 )
                             }
                         }
+                    } + SettingRow(tk("RESET TO DEFAULT"), null) {
+                        confirm = Confirm(
+                            tk("RESET BUTTONS?"),
+                            tr("The buttons of {0} go back to the defaults. Other controllers keep theirs.", GbaControls.currentPad?.name ?: tr("ALL CONTROLLERS")),
+                            tk("RESET"),
+                        ) { settings.resetGbaControls(); tick++ }
                     } + SettingRow(tk("CANCEL"), null) { page = Page.HOME }
                     // Off, the binds stay as they are, greyed out, and every key goes to the game.
                     Page.HOTKEYS -> listOf(
@@ -572,7 +581,7 @@ private fun homeRows(
         // Small on / off preferences: the icons' bounce, the map cursor's blink, tab slides, the battle jump.
         SettingRow(tk("TWEAKS"), null, opensPage = true, subtitle = "Small animations and the battle jump") { navigate(Page.TWEAKS) },
         groupTitle(tk("CONTROLS")),
-        SettingRow(tk("GAME BUTTONS"), null, subtitle = "Key bindings: which button presses A, B, START...", opensPage = true) { navigate(Page.BUTTONS) },
+        SettingRow(tk("GAME BUTTONS"), null, subtitle = "Key bindings: which button presses A, B, START...", opensPage = true, labelBadge = NewFeatures.badge(NewFeatures.PAD_BUTTONS)) { navigate(Page.BUTTONS) },
         SettingRow(tk("HOTKEYS"), onOff(s.hotkeysEnabled), opensPage = true, subtitle = "Button combos for states, FF and more") { navigate(Page.HOTKEYS) },
         // PC, FLY, a Repel, the bike, a rod, states, FF... on a held button (L3 by default): its own page.
         SettingRow(tk("QUICK MENU"), null, subtitle = "Actions on a held button", labelBadge = quickMenuBadge(), opensPage = true) { navigate(Page.QUICK_MENU) },

@@ -26,7 +26,13 @@ The button settings live in the `CONTROLS` group, on both screens: the top scree
 
 To change one, tap its row (it says `PRESS A BUTTON…`) and press the button you want on your device. That works the same on the top screen and on the companion: there, while a row waits, the game's screen shows a window asking for the button and the keys you hold. `CANCEL`, or `BACK`, leaves the button as it was. `TURBO A` and `TURBO B` also get `CLEAR`, which takes them off every button again.
 
-The new button replaces everything that GBA button had, keyboard key included. A button can only do one GBA button: put it on a new one and it leaves the old one.
+The new button replaces everything that GBA button had on that controller. A button can only do one GBA button: put it on a new one and it leaves the old one.
+
+### Each controller keeps its own buttons
+
+Every controller and keyboard has its own buttons. `GAME BUTTONS` shows the one you pressed a button on last: the top screen names it in the line above the rows, the companion in its `CONTROLLER` row. To see another controller's buttons, press any button on it. A change goes to the controller whose button you pressed, so setting up your keyboard never moves your gamepad's buttons, and the other way round. Until you change something on a controller, it uses the starting buttons in the table above.
+
+`RESET TO DEFAULT`, under the rows, puts the controller you're looking at back to those starting buttons. It asks first, and your other controllers keep theirs.
 
 > [!NOTE]
 > Buttons go by Android's names, which follow an Xbox controller's layout. On AYN and Retroid devices, `A` is the bottom face button even where the printed label says something else. If A and B feel swapped, swap them here.

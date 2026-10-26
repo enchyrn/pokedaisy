@@ -81,6 +81,8 @@ class KeyCapture {
 
     /** A key event; true when it's the capture's (the caller passes it on otherwise). */
     fun onKey(event: KeyEvent): Boolean {
+        // Every key passes here first on the screens that rebind: GAME BUTTONS follows the controller pressing.
+        if (event.action == KeyEvent.ACTION_DOWN) com.pokedaisy.app.GbaControls.notePad(event.device)
         if (event.action != KeyEvent.ACTION_DOWN && event.action != KeyEvent.ACTION_UP) return active && event.keyCode !in SYSTEM_KEYS
         return onKey(event.keyCode, event.action == KeyEvent.ACTION_DOWN, event.repeatCount)
     }

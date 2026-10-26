@@ -29,14 +29,28 @@ class GbaInput {
     @Volatile
     private var controls: Map<Int, Int> = DEFAULT_CONTROLS
 
-    fun setControls(map: Map<Int, Int>) { controls = map }
+    /** Every controller's own map ([GbaControls.Pad]); null = [controls] for all. */
+    @Volatile
+    private var padControls: GbaControls.Controls? = null
+
+    /** The controller that pressed a key last: a key from no known controller (an analog trigger's) reads its map. */
+    @Volatile
+    private var lastPad: String? = null
+
+    fun setControls(map: Map<Int, Int>) { controls = map; padControls = null }
+
+    fun setControls(all: GbaControls.Controls) { controls = all.forPad(null); padControls = all }
+
+    private fun controlsFor(pad: String?): Map<Int, Int> = padControls?.forPad(pad ?: lastPad) ?: controls
 
     /** A DS game runs: X / Y ([GbaControls.DS_X] / [GbaControls.DS_Y]) press its X / Y. */
     @Volatile var ds = false
 
-    /** @return true if the event was consumed. */
-    fun onKey(keyCode: Int, down: Boolean): Boolean {
-        val bit = keyToBit(keyCode) ?: return false
+    /** [pad]: the controller's [GbaControls.Pad.key] (its own GAME BUTTONS), null = the last one's.
+     *  @return true if the event was consumed. */
+    fun onKey(keyCode: Int, down: Boolean, pad: String? = null): Boolean {
+        if (pad != null) lastPad = pad
+        val bit = keyToBit(keyCode, pad) ?: return false
         if (bit and GbaControls.TURBO != 0) {
             if (down) turboKeys[keyCode] = bit and GbaControls.TURBO.inv() else turboKeys.remove(keyCode)
             turboBits = turboKeys.values.fold(0) { acc, b -> acc or b }
@@ -50,10 +64,10 @@ class GbaInput {
 
     /** The GBA button [keyCode] is bound to (D-pad, or the player's GAME BUTTONS; a TURBO key counts as its button),
      * null = none. The companion's window reads keys through this, so it follows the player's bindings. */
-    fun buttonFor(keyCode: Int): Int? = keyToBit(keyCode)?.let { it and GbaControls.TURBO.inv() }
+    fun buttonFor(keyCode: Int, pad: String? = null): Int? = keyToBit(keyCode, pad)?.let { it and GbaControls.TURBO.inv() }
 
     /** [keyCode] is bound to X (GAME BUTTONS), whatever it presses in the game running. */
-    fun isX(keyCode: Int): Boolean = (controls[keyCode] ?: 0) and GbaControls.DS_X != 0
+    fun isX(keyCode: Int, pad: String? = null): Boolean = (controlsFor(pad)[keyCode] ?: 0) and GbaControls.DS_X != 0
 
     /** Lets go of every key the player holds (not a script's): the companion's window took the buttons, or a rebind
      *  the keys' releases. */
@@ -112,7 +126,7 @@ class GbaInput {
         mask = (if (scriptExclusive) scriptBits else buttonBits or hatBits or touchBits or scriptBits) or pressBits
     }
 
-    private fun keyToBit(keyCode: Int): Int? = when (keyCode) {
+    private fun keyToBit(keyCode: Int, pad: String?): Int? = when (keyCode) {
         KeyEvent.KEYCODE_DPAD_UP -> MgbaCore.Key.UP
         KeyEvent.KEYCODE_DPAD_DOWN -> MgbaCore.Key.DOWN
         KeyEvent.KEYCODE_DPAD_LEFT -> MgbaCore.Key.LEFT
@@ -122,7 +136,7 @@ class GbaInput {
         KeyEvent.KEYCODE_DPAD_UP_RIGHT -> MgbaCore.Key.UP or MgbaCore.Key.RIGHT
         KeyEvent.KEYCODE_DPAD_DOWN_LEFT -> MgbaCore.Key.DOWN or MgbaCore.Key.LEFT
         KeyEvent.KEYCODE_DPAD_DOWN_RIGHT -> MgbaCore.Key.DOWN or MgbaCore.Key.RIGHT
-        else -> controls[keyCode]?.let(::forCore)   // remappable face/shoulder/menu buttons
+        else -> controlsFor(pad)[keyCode]?.let(::forCore)   // remappable face/shoulder/menu buttons
     }
 
     /** A binding's bits for the game running: X / Y are X / Y on a DS, else START / SELECT. */

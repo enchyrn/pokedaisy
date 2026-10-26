@@ -102,7 +102,7 @@ val SETTING_KEYWORDS: Map<String, String> = mapOf(
     "FF MUSIC" to "fast forward audio sound music steady sped up mute",
     "REWIND" to "rewind undo go back time",
     "TOUCH CONTROLS" to "touch controls on screen controls virtual gamepad overlay touch buttons layout edit move resize size scale opacity transparency see through haptic haptics vibration vibrate turbo dpad d-pad fade hide phone",
-    "GAME BUTTONS" to "key bindings keybinds keybinding controls remap remapping rebind mapping input controller gamepad buttons turbo",
+    "GAME BUTTONS" to "key bindings keybinds keybinding controls remap remapping rebind mapping input controller gamepad buttons turbo reset default keyboard per controller",
     "HOTKEYS" to "shortcuts combos save state load state slot rewind fast forward key bindings restart close quit exit app companion open panel window",
     "QUICK MENU" to "radial ring wheel circle grid style labels names icons only shortcut actions pc fly repel super max bike bicycle get off dismount rod fishing wild encounters save load state fast forward l3 thumb stick",
     "STATUS BAR" to "clock time battery money location top bar",
