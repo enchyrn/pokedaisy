@@ -145,7 +145,7 @@ Small, concrete follow-ups, apart from the ordered steps below.
 ### PKForge
 
 - **Cross-game EXP rule.** When a Pokémon enters a game whose growth curve differs (for example Unbound's Medium Slow Larvitar), decide between keeping its level and resetting its progress inside that level, or keeping half the EXP gap. Whichever is chosen counts as the "penalty for crossing universes".
-- **Unbound daycare that writes EXP only.** The Poképark daycare writes EXP to Unbound Pokémon and leaves levelling up and stats to the game, recovering part of the lost EXP organically.
+- **Unbound daycare that writes EXP only.** Done in PKForge Fork 3.1.1-fork.6 (2026-10-27): stays are reckoned on Unbound's own growth curves and written as EXP only. The same release added Blissey's notebook, which keeps stays whose EXP couldn't be written and settles them once their saves are open. Camp can reuse the notebook idea for time away from the game.
 - **Heart & Soul save engine.** Only if a move to Heart & Soul is chosen.
 
 ## Order
