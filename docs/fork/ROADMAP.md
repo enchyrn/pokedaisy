@@ -120,6 +120,34 @@ Order for the owner's run (started 2026-10-26, Treecko "Enchyrn", in Oldale Town
 
 Anything seen inside the game world: tents on routes, more than one real hideout to walk into, camp Pokémon walking around, new scripts or maps. That waits for the modernized Emerald hack.
 
+### Choosing hacks (compared 2026-10-26, partly unverified)
+
+Unbound (CFRU on FireRed) can't send Pokémon back to vanilla games legally: its PC record drops met data and friendship, and its growth curves and moves differ. That comes from the expanded engine, not from FireRed. No polished Emerald story hack avoids it either: Lazarus, Heart & Soul, Seaglass, Quetzal and Elite Redux all add species and moves, so their saves aren't plain Emerald.
+
+- **Decision for now:** stay on Unbound and treat crossing between game universes as one-way, with a penalty (see the work items).
+- **Heart & Soul** is the strongest Emerald-based alternative: it has public source, and PokeDaisy fully supports it (guide and area data). PKForge only opens it read-only.
+- Lazarus, Seaglass and Quetzal get PokeDaisy's partial support (next boss and current location); Elite Redux has only test fixtures; Crown wasn't found.
+- **Still to research:** light-edit Emerald hacks that keep Emerald's save layout and only the original 386 species. These are the only kind that could keep transfers to vanilla Emerald legal.
+
+Camp is unaffected by all of this. It never moves Pokémon between games, and each hack would need only its own route tables.
+
+## Work items
+
+Small, concrete follow-ups, apart from the ordered steps below.
+
+### PokeDaisy
+
+- **Controller mappings per device.** Every binding goes in one `controls.properties`, keyed by Android key name. `GbaControls.setBinding` replaces the button's whole key list with the key just pressed, so binding A on the Nova Lite drops the keyboard's A. The keyboard and the controller can't both keep their own maps.
+  - Keep one map per input device, chosen by the device that sent the key (`InputDevice` descriptor, falling back to its name), and use the map of whichever device is pressing.
+  - Add a "Reset to default" per device, built from `GbaControls.DEFAULTS`.
+  - Existing files become the map of the device that's connected first, or of every device.
+
+### PKForge
+
+- **Cross-game EXP rule.** When a Pokémon enters a game whose growth curve differs (for example Unbound's Medium Slow Larvitar), decide between keeping its level and resetting its progress inside that level, or keeping half the EXP gap. Whichever is chosen counts as the "penalty for crossing universes".
+- **Unbound daycare that writes EXP only.** The Poképark daycare writes EXP to Unbound Pokémon and leaves levelling up and stats to the game, recovering part of the lost EXP organically.
+- **Heart & Soul save engine.** Only if a move to Heart & Soul is chosen.
+
 ## Order
 
 1. This fork and the module host.
