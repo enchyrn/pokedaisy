@@ -56,13 +56,14 @@ android {
     ndkVersion = "28.2.13676358"
 
     defaultConfig {
-        applicationId = "com.pokedaisy.app"
+        // The fork's own app ID (docs/fork/README.md): it installs beside upstream's PokeDaisy, never over it.
+        applicationId = "io.github.enchyrn.pokedaisy"
         minSdk = 26
         targetSdk = 34
         // Bump both for every GitHub release: the updater compares versionName
         // against the release tag (v<versionName>), Android needs versionCode to grow.
-        versionCode = 15
-        versionName = "1.3.2"
+        versionCode = 16
+        versionName = "1.3.2-fork.1"
         // Whether this build can send crash reports at all (CrashReports.available).
         buildConfigField("boolean", "CRASHLYTICS", crashlytics.toString())
         buildConfigField("String", "SCREENSCRAPER_DEV_ID", "\"${screenScraperSecret("screenscraper.devId", "SCREENSCRAPER_DEV_ID")}\"")

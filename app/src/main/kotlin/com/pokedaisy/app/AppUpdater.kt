@@ -13,7 +13,8 @@ import java.net.URL
  */
 object AppUpdater {
 
-    const val REPO = "lidor30/pokedaisy"
+    // The fork updates from its own releases (docs/fork/README.md).
+    const val REPO = "enchyrn/pokedaisy"
     const val RELEASES_PAGE = "https://github.com/$REPO/releases"
 
     class Release(
